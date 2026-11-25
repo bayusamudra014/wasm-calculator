@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WASM Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header>
+      <h1>Calculator</h1>
+      <p class="sub">The math runs in Go, compiled to WebAssembly</p>
+    </header>
+
+    <section class="calc" aria-label="Calculator">
+      <output class="display" id="display" aria-live="polite">
+        <span class="expr" id="expr"></span>
+        <span class="value" id="value">0</span>
+      </output>
+
+      <!--
+        Keypad. Buttons that call WASM have data-op="<name in calcWasm>"
+        and data-arity="1" (one number) or "2" (two numbers).
+        TODO 3: add a button for your own function, e.g.
+        <button data-op="modulo" data-arity="2" data-symbol="mod">mod</button>
+      -->
+      <div class="keys" id="keys">
+        <button data-action="clear" class="fn">C</button>
+        <button data-action="back" class="fn" aria-label="Backspace">⌫</button>
+        <button data-op="percent" data-arity="1" class="fn">%</button>
+        <button data-op="divide" data-arity="2" data-symbol="÷" class="op">÷</button>
+
+        <button data-digit="7">7</button>
+        <button data-digit="8">8</button>
+        <button data-digit="9">9</button>
+        <button data-op="multiply" data-arity="2" data-symbol="×" class="op">×</button>
+
+        <button data-digit="4">4</button>
+        <button data-digit="5">5</button>
+        <button data-digit="6">6</button>
+        <button data-op="subtract" data-arity="2" data-symbol="−" class="op">−</button>
+
+        <button data-digit="1">1</button>
+        <button data-digit="2">2</button>
+        <button data-digit="3">3</button>
+        <button data-op="add" data-arity="2" data-symbol="+" class="op">+</button>
+
+        <button data-action="negate" aria-label="Plus/minus">±</button>
+        <button data-digit="0">0</button>
+        <button data-digit=".">.</button>
+        <button data-action="equals" class="eq">=</button>
+
+        <button data-op="sqrt" data-arity="1" class="fn wide">√x</button>
+        <button data-op="power" data-arity="2" data-symbol="^" class="fn wide">xʸ</button>
+      </div>
+    </section>
+
+    <section class="status">
+      <h2>WASM functions</h2>
+      <ul id="status"><li>Loading WASM…</li></ul>
+    </section>
+  </main>
+
+  <script src="wasm_exec.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
